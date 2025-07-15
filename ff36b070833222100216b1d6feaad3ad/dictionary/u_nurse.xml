@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element audit="true" db_object_id="c41681f4837222100216b1d6feaad3d8" label="Nurse" max_length="40" name="u_nurse" type="collection">
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Status" mandatory="true" max_length="40" name="u_status" type="string">
+            <choice>
+                <element inactive_on_update="false" label="Retired" sequence="2" value="retired"/>
+                <element inactive_on_update="false" label="New" sequence="0" value="new"/>
+                <element inactive_on_update="false" label="Active" sequence="1" value="active"/>
+            </choice>
+        </element>
+        <element attributes="edge_encryption_enabled=true" label="Email" mandatory="true" max_length="200" name="u_email" type="string"/>
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Department" mandatory="true" max_length="40" name="u_department" type="string">
+            <choice>
+                <element inactive_on_update="false" label="Cardiology" sequence="1" value="cardiology"/>
+                <element inactive_on_update="false" label="Pediatrics" sequence="2" value="pediatrics"/>
+                <element inactive_on_update="false" label="General Medicine" sequence="0" value="general_medicine"/>
+            </choice>
+        </element>
+        <element attributes="edge_encryption_enabled=true" label="Last Name" mandatory="true" max_length="100" name="u_last_name" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Work Notes" max_length="4000" name="u_work_notes" type="journal"/>
+        <element label="Contact Number" mandatory="true" max_length="40" name="u_contact_number" type="phone_number_e164"/>
+        <element attributes="edge_encryption_enabled=true" label="First Name" mandatory="true" max_length="100" name="u_first_name" type="string"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Nurse ID" max_length="40" name="u_number" read_only="true" type="string"/>
+    </element>
+</database>

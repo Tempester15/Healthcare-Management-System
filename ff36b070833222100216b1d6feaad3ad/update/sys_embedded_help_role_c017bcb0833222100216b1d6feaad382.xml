@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_embedded_help_role">
+    <sys_embedded_help_role action="INSERT_OR_UPDATE">
+        <order>1000</order>
+        <role display_value="healthcare_staff" name="healthcare_staff">e90770f0833222100216b1d6feaad3ad</role>
+        <sys_class_name>sys_embedded_help_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-07-15 01:38:40</sys_created_on>
+        <sys_id>c017bcb0833222100216b1d6feaad382</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>e90770f0833222100216b1d6feaad3ad</sys_name>
+        <sys_package display_value="Healthcare Management Application" source="ff36b070833222100216b1d6feaad3ad">ff36b070833222100216b1d6feaad3ad</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Healthcare Management Application">ff36b070833222100216b1d6feaad3ad</sys_scope>
+        <sys_update_name>sys_embedded_help_role_c017bcb0833222100216b1d6feaad382</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-07-15 01:38:40</sys_updated_on>
+    </sys_embedded_help_role>
+</record_update>
