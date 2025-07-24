@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_list parent="" relationship="" sys_domain="global" table="u_patient_record" version="2" view="staff_view">
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_number</element>
+            <list_id display_value="u_patient_record" element="NULL" name="u_patient_record" parent="NULL" relationship="NULL" sys_domain="global" view="25ed28b383766650b490fa96feaad303">820ee4f383766650b490fa96feaad380</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>0</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-07-24 08:41:00</sys_created_on>
+            <sys_id>8e0ee4f383766650b490fa96feaad380</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-07-24 08:41:00</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_first_name</element>
+            <list_id display_value="u_patient_record" element="NULL" name="u_patient_record" parent="NULL" relationship="NULL" sys_domain="global" view="25ed28b383766650b490fa96feaad303">820ee4f383766650b490fa96feaad380</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>1</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-07-24 08:41:00</sys_created_on>
+            <sys_id>020ee4f383766650b490fa96feaad381</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-07-24 08:41:00</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_last_name</element>
+            <list_id display_value="u_patient_record" element="NULL" name="u_patient_record" parent="NULL" relationship="NULL" sys_domain="global" view="25ed28b383766650b490fa96feaad303">820ee4f383766650b490fa96feaad380</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>2</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-07-24 08:41:00</sys_created_on>
+            <sys_id>820ee4f383766650b490fa96feaad381</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-07-24 08:41:00</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_contact_number</element>
+            <list_id display_value="u_patient_record" element="NULL" name="u_patient_record" parent="NULL" relationship="NULL" sys_domain="global" view="25ed28b383766650b490fa96feaad303">820ee4f383766650b490fa96feaad380</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>3</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-07-24 08:41:00</sys_created_on>
+            <sys_id>060ee4f383766650b490fa96feaad381</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-07-24 08:41:00</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_email</element>
+            <list_id display_value="u_patient_record" element="NULL" name="u_patient_record" parent="NULL" relationship="NULL" sys_domain="global" view="25ed28b383766650b490fa96feaad303">820ee4f383766650b490fa96feaad380</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>4</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-07-24 08:41:00</sys_created_on>
+            <sys_id>860ee4f383766650b490fa96feaad381</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-07-24 08:41:00</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>u_address</element>
+            <list_id display_value="u_patient_record" element="NULL" name="u_patient_record" parent="NULL" relationship="NULL" sys_domain="global" view="25ed28b383766650b490fa96feaad303">820ee4f383766650b490fa96feaad380</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>5</position>
+            <sum>false</sum>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-07-24 08:41:00</sys_created_on>
+            <sys_id>0a0ee4f383766650b490fa96feaad381</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-07-24 08:41:00</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element/>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <name>u_patient_record</name>
+            <parent/>
+            <position/>
+            <relationship/>
+            <sum>false</sum>
+            <sys_class_name>sys_ui_list</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-07-24 08:41:00</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>820ee4f383766650b490fa96feaad380</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>u_patient_record</sys_name>
+            <sys_package display_value="Healthcare Management Application" source="ff36b070833222100216b1d6feaad3ad">ff36b070833222100216b1d6feaad3ad</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Healthcare Management Application">ff36b070833222100216b1d6feaad3ad</sys_scope>
+            <sys_update_name>sys_ui_list_u_patient_record_staff_view</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-07-24 08:41:00</sys_updated_on>
+            <sys_user/>
+            <view display_value="Staff View" name="staff_view">25ed28b383766650b490fa96feaad303</view>
+            <view_name/>
+        </sys_ui_list>
+    </sys_ui_list>
+</record_update>

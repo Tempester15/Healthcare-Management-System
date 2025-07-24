@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="DELETE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>global.FetchRecordsUtils</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <mobile_callable>false</mobile_callable>
+        <name>FetchRecordsUtils</name>
+        <sandbox_callable>false</sandbox_callable>
+        <script><![CDATA[var FetchRecordsUtils = Class.create();
+FetchRecordsUtils.prototype = {
+    initialize: function() {
+		this.patientTable = new GlideRecord('u_patient_record');
+		this.appointmentTable = new GlideRecord('u_appointments');
+		this.medicationTable = new GlideRecord("u_medication");
+		this.labTestTable = new GlideRecord('u_lab_test');
+		this.doctorTable = new GlideRecord('u_doctor');
+		this.nurseTable = new GlideRecord('u_nurse');
+		this.wardTable = new GlideRecord('u_ward');
+		this.roomTable = new GlideRecord('u_rooms');
+		this.billingTable = new GlideRecord('u_billing');
+		this.insuranceTable = new GlideRecord('u_insurance');
+    },
+
+	fetchAllAppointmentsOfPatient : function(patientId){
+		this.patientTable.addQuery('number', patientId);
+		this.patientTable.query();
+		if(this.patientTable.next()){
+			var records = [];
+			this.appointmentTable.addQuery('u_patient_id', this.patientTable.sys_id);
+			this.appointmentTable.query();
+			while(this.appointmentTable.next()){
+				records.push({
+					app_id : this.appointmentTable.number.toString(),
+					app_date : this.appointmentTable.u_appointment_date.toString(),
+					app_doctor_id : this.appointmentTable.getDisplayValue('u_doctor_id'),
+					app_status : this.appointmentTable.getDisplayValue('u_status')
+				});
+			}
+		}
+		return JSON.stringify(records);
+	},
+
+    type: 'FetchRecordsUtils'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-07-24 10:39:37</sys_created_on>
+        <sys_id>06858d7383f66650b490fa96feaad3ac</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>FetchRecordsUtils</sys_name>
+        <sys_package display_value="Healthcare Management Application" source="ff36b070833222100216b1d6feaad3ad">ff36b070833222100216b1d6feaad3ad</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Healthcare Management Application">ff36b070833222100216b1d6feaad3ad</sys_scope>
+        <sys_update_name>sys_script_include_06858d7383f66650b490fa96feaad3ac</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-07-24 10:43:53</sys_updated_on>
+    </sys_script_include>
+    <sys_es_latest_script action="DELETE">
+        <id>06858d7383f66650b490fa96feaad3ac</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-07-24 10:39:36</sys_created_on>
+        <sys_id>272901b383f66650b490fa96feaad339</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-07-24 10:39:36</sys_updated_on>
+        <table>sys_script_include</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Healthcare Management Application">ff36b070833222100216b1d6feaad3ad</application>
+        <file_path/>
+        <instance_id>bdd035351b9a4e1019254089bd4bcb84</instance_id>
+        <instance_name>dev271928</instance_name>
+        <name>sys_script_include_06858d7383f66650b490fa96feaad3ac</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_script_include"&gt;&lt;sys_script_include action="INSERT_OR_UPDATE"&gt;&lt;access&gt;package_private&lt;/access&gt;&lt;active&gt;true&lt;/active&gt;&lt;api_name&gt;global.FetchRecordsUtils&lt;/api_name&gt;&lt;caller_access/&gt;&lt;client_callable&gt;false&lt;/client_callable&gt;&lt;description/&gt;&lt;mobile_callable&gt;false&lt;/mobile_callable&gt;&lt;name&gt;FetchRecordsUtils&lt;/name&gt;&lt;sandbox_callable&gt;false&lt;/sandbox_callable&gt;&lt;script&gt;&lt;![CDATA[var FetchRecordsUtils = Class.create();
+FetchRecordsUtils.prototype = {
+    initialize: function() {
+		this.patientTable = new GlideRecord('u_patient_record');
+		this.appointmentTable = new GlideRecord('u_appointments');
+		this.medicationTable = new GlideRecord("u_medication");
+		this.labTestTable = new GlideRecord('u_lab_test');
+		this.doctorTable = new GlideRecord('u_doctor');
+		this.nurseTable = new GlideRecord('u_nurse');
+		this.wardTable = new GlideRecord('u_ward');
+		this.roomTable = new GlideRecord('u_rooms');
+		this.billingTable = new GlideRecord('u_billing');
+		this.insuranceTable = new GlideRecord('u_insurance');
+    },
+
+	fetchAllAppointmentsOfPatient : function(patientId){
+		this.patientTable.addQuery('number', patientId);
+		this.patientTable.query();
+		if(this.patientTable.next()){
+			var records = [];
+			this.appointmentTable.addQuery('u_patient_id', this.patientTable.sys_id);
+			this.appointmentTable.query();
+			while(this.appointmentTable.next()){
+				records.push({
+					app_id : this.appointmentTable.number.toString(),
+					app_date : this.appointmentTable.u_appointment_date.toString(),
+					app_doctor_id : this.appointmentTable.getDisplayValue('u_doctor_id'),
+					app_status : this.appointmentTable.getDisplayValue('u_status')
+				});
+			}
+		}
+		return JSON.stringify(records);
+	},
+
+    type: 'FetchRecordsUtils'
+};]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_include&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-07-24 10:39:37&lt;/sys_created_on&gt;&lt;sys_id&gt;06858d7383f66650b490fa96feaad3ac&lt;/sys_id&gt;&lt;sys_mod_count&gt;2&lt;/sys_mod_count&gt;&lt;sys_name&gt;FetchRecordsUtils&lt;/sys_name&gt;&lt;sys_package display_value="Healthcare Management Application" source="ff36b070833222100216b1d6feaad3ad"&gt;ff36b070833222100216b1d6feaad3ad&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Healthcare Management Application"&gt;ff36b070833222100216b1d6feaad3ad&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_include_06858d7383f66650b490fa96feaad3ac&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-07-24 10:43:53&lt;/sys_updated_on&gt;&lt;/sys_script_include&gt;&lt;sys_es_latest_script action="INSERT_OR_UPDATE"&gt;&lt;id&gt;06858d7383f66650b490fa96feaad3ac&lt;/id&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-07-24 10:39:36&lt;/sys_created_on&gt;&lt;sys_id&gt;272901b383f66650b490fa96feaad339&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-07-24 10:39:36&lt;/sys_updated_on&gt;&lt;table&gt;sys_script_include&lt;/table&gt;&lt;use_es_latest&gt;true&lt;/use_es_latest&gt;&lt;/sys_es_latest_script&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>1274387076</payload_hash>
+        <record_name>FetchRecordsUtils</record_name>
+        <reverted_from/>
+        <source>5e2ba8fb83366650b490fa96feaad35e</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-07-24 10:43:53</sys_created_on>
+        <sys_id>5a2a49f783f66650b490fa96feaad359</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1983c084ba00000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-07-24 10:43:53</sys_updated_on>
+        <type>Script Include</type>
+        <update_guid>de2a49f741f66650edfe781e8f16a258</update_guid>
+        <update_guid_history>de2a49f741f66650edfe781e8f16a258:1274387076,fe39c57728f6665056eeb913a5f5538e:-1329038367,b32905b787f66650ca35fbf8f0b4f1c1:2132300484</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-07-24 10:51:49</sys_created_on>
+        <sys_db_object display_value="" name="sys_script_include">sys_script_include</sys_db_object>
+        <sys_id>ea5c954e87d144d2a32ccb3695fd69e4</sys_id>
+        <sys_metadata>06858d7383f66650b490fa96feaad3ac</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>FetchRecordsUtils</sys_name>
+        <sys_package display_value="Healthcare Management Application" source="ff36b070833222100216b1d6feaad3ad">ff36b070833222100216b1d6feaad3ad</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Healthcare Management Application">ff36b070833222100216b1d6feaad3ad</sys_scope>
+        <sys_scope_delete display_value="">9b712d26e4224448a4530c4568a37ac4</sys_scope_delete>
+        <sys_update_name>sys_script_include_06858d7383f66650b490fa96feaad3ac</sys_update_name>
+        <sys_update_version display_value="sys_script_include_06858d7383f66650b490fa96feaad3ac">5a2a49f783f66650b490fa96feaad359</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-07-24 10:51:49</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

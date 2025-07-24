@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>global.FetchRecordsUtils</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <mobile_callable>false</mobile_callable>
+        <name>FetchRecordsUtils</name>
+        <sandbox_callable>false</sandbox_callable>
+        <script><![CDATA[var FetchRecordsUtils = Class.create();
+FetchRecordsUtils.prototype = {
+    initialize: function() {
+        this.patientTable = new GlideRecord('u_patient_record');
+        this.appointmentTable = new GlideRecord('u_appointments');
+        this.medicationTable = new GlideRecord("u_medication");
+        this.labTestTable = new GlideRecord('u_lab_test');
+        this.doctorTable = new GlideRecord('u_doctor');
+        this.nurseTable = new GlideRecord('u_nurse');
+        this.wardTable = new GlideRecord('u_ward');
+        this.roomTable = new GlideRecord('u_rooms');
+        this.billingTable = new GlideRecord('u_billing');
+        this.insuranceTable = new GlideRecord('u_insurance');
+    },
+
+    fetchAllAppointmentsOfPatient: function(patientId) {
+        this.patientTable.addQuery('u_number', patientId);
+        this.patientTable.query();
+        if (this.patientTable.next()) {
+            var records = [];
+            this.appointmentTable.addQuery('u_patient_id', this.patientTable.sys_id);
+            this.appointmentTable.query();
+            while (this.appointmentTable.next()) {
+                records.push({
+                    app_id: this.appointmentTable.number.toString(),
+                    app_date: this.appointmentTable.u_appointment_date.toString(),
+                    app_doctor_id: this.appointmentTable.getDisplayValue('u_doctor_id'),
+                    app_status: this.appointmentTable.getDisplayValue('u_status')
+                });
+            }
+        }
+        return JSON.stringify(records);
+    },
+
+    // BG Script - 
+    // var fetchRecord = new FetchRecordsUtils();
+    // var record = JSON.parse(fetchRecord.fetchAllAppointmentsOfPatient('PAT0001006'));
+    // for(var i = 0; i<record.length; i++) {
+    // 		gs.print(JSON.stringify(record[i]));
+    // }
+
+    changeAppointmentStatus: function() {
+        this.appointmentTable.addQuery('u_status', 'overdue');
+        this.appointmentTable.query();
+        while (this.appointmentTable.next()) {
+            this.appointmentTable.u_status = 'cancelled';
+            this.appointmentTable.update();
+            gs.log("Appointment status update to : " + this.appointmentTable.u_status);
+            gs.log("Appointment Number : " + this.appointmentTable.number);
+        }
+    },
+
+    //var fetchRecord = new FetchRecordsUtils();
+    // fetchRecord.changeAppointmentStatus();
+
+    fetchPrescribedMedication: function(patientId) {
+        this.patientTable.addQuery('u_number', patientId);
+        this.patientTable.query();
+        var records = [];
+        if (this.patientTable.next()) {
+            this.medicationTable.addQuery('u_patient_id', this.patientTable.sys_id);
+            this.medicationTable.query();
+            while (this.medicationTable.next()) {
+                records.push({
+                    med_id: this.medicationTable.number.toString(),
+                    med_name: this.medicationTable.u_medication_name.toString(),
+                    med_dose: this.medicationTable.u_dosage.toString(),
+                    med_freq: this.medicationTable.getDisplayValue('u_frequency'),
+                    med_start_date: this.medicationTable.u_start_date.toString(),
+                    med_end_date: this.medicationTable.u_end_date.toString(),
+                    med_pre_doc: this.medicationTable.getDisplayValue('u_prescribing_doctor')
+                });
+            }
+        }
+        return JSON.stringify(records);
+    },
+
+    // BG Script - 
+    // var fetchRecord = new FetchRecordsUtils();
+    // var records = JSON.parse(fetchRecord.fetchPrescribedMedication('PAT0001006'));
+    // for (var i = 0; i < records.length; i++) {
+    //     gs.print(JSON.stringify(records[i]));
+    // }
+
+    fetchLabTestsOfPatient: function(patientId) {
+        this.patientTable.addQuery('u_number', patientId);
+        this.patientTable.query();
+        var records = [];
+        if (this.patientTable.next()) {
+            this.labTestTable.addQuery('u_patient_id', this.patientTable.sys_id);
+            this.labTestTable.query();
+            while (this.labTestTable.next()) {
+                records.push({
+                    lt_id: this.labTestTable.number.toString(),
+                    lt_type: this.labTestTable.getDisplayValue('u_test_type').toString(),
+                    lt_date: this.labTestTable.u_scheduled_date.toString(),
+                    lt_status: this.labTestTable.getDisplayValue('u_status').toString(),
+                    lt_result: this.labTestTable.u_results.toString()
+                });
+            }
+        }
+        return JSON.stringify(records);
+    },
+
+    // BG Script - 
+    // var fetchRecord = new FetchRecordsUtils();
+    // var records = JSON.parse(fetchRecord.fetchLabTestsOfPatient('PAT0001006'));
+    // for (var i = 0; i < records.length; i++) {
+    //     gs.print(JSON.stringify(records[i]));
+    // }
+
+    fetchWardOccupancy: function() {
+        var records = [];
+        this.wardTable.query();
+        while (this.wardTable.next()) {
+            records.push({
+                wrd_id: this.wardTable.getValue('u_number').toString(),
+                wrd_name: this.wardTable.getValue('u_ward_name'),
+                wrd_occ: this.wardTable.getValue('u_occupancy'),
+                wrd_cap: this.wardTable.getValue('u_capacity'),
+                wrd_status: this.wardTable.getDisplayValue('u_status')
+            });
+        }
+        return JSON.stringify(records);
+    },
+
+    fetchAvailStatusOfRooms: function() {
+        var records = [];
+        this.roomTable.query();
+        while (this.roomTable.next()) {
+            records.push({
+                rm_id: this.roomTable.getValue('u_number'),
+                rm_wrd_id: this.roomTable.getDisplayValue('u_ward_id'),
+                rm_occ_bed: this.roomTable.getValue('u_occupied_beds'),
+                rm_bed_count: this.roomTable.getValue('u_bed_counts'),
+                rm_bed_avail: this.roomTable.getValue('u_bed_counts') - this.roomTable.getValue('u_occupied_beds')
+            });
+        }
+
+        return JSON.stringify(records);
+    },
+
+
+    fetchBillingRecordsForPatient: function(patientId) {
+        this.patientTable.addQuery('u_number', patientId);
+        this.patientTable.query();
+        var records = [];
+        if (this.patientTable.next()) {
+            this.billingTable.addQuery('u_patient_id', this.patientTable.sys_id);
+            this.billingTable.query();
+            while (this.billingTable.next()) {
+                records.push({
+                    bill_id: this.billingTable.number.toString(),
+                    bill_type: this.billingTable.getDisplayValue('u_appointment_id').toString(),
+                    bill_date: this.billingTable.getDisplayValue('u_status').toString(),
+                    bill_status: this.billingTable.getDisplayValue('u_total_amount').toString(),
+                });
+            }
+        }
+        return JSON.stringify(records);
+    },
+
+    fetchInsuranceForPatient: function(patientId) {
+        this.patientTable.addQuery('u_number', patientId);
+        this.patientTable.query();
+        var records = [];
+        if (this.patientTable.next()) {
+            this.insuranceTable.addQuery('u_patient_id', this.patientTable.sys_id);
+            this.insuranceTable.query();
+            while (this.insuranceTable.next()) {
+                records.push({
+                    ins_id: this.insuranceTable.number.toString(),
+                    ins_provider: this.insuranceTable.u_provider.toString(),
+                    ins_pol_no: this.insuranceTable.getValue('u_policy_number').toString(),
+                    ins_cov_details: this.insuranceTable.getValue('u_coverage_details').toString(),
+					ins_status : this.insuranceTable.getDisplayValue('u_status').toString()
+                });
+            }
+        }
+        return JSON.stringify(records);
+    },
+    type: 'FetchRecordsUtils'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-07-24 10:54:27</sys_created_on>
+        <sys_id>431cc57b83f66650b490fa96feaad32e</sys_id>
+        <sys_mod_count>12</sys_mod_count>
+        <sys_name>FetchRecordsUtils</sys_name>
+        <sys_package display_value="Healthcare Management Application" source="ff36b070833222100216b1d6feaad3ad">ff36b070833222100216b1d6feaad3ad</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Healthcare Management Application">ff36b070833222100216b1d6feaad3ad</sys_scope>
+        <sys_update_name>sys_script_include_431cc57b83f66650b490fa96feaad32e</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-07-24 11:58:21</sys_updated_on>
+    </sys_script_include>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>431cc57b83f66650b490fa96feaad32e</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-07-24 10:54:27</sys_created_on>
+        <sys_id>f09c493b83f66650b490fa96feaad312</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-07-24 10:54:27</sys_updated_on>
+        <table>sys_script_include</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>
