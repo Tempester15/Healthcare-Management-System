@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>global.BusinessRulesUtils</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <mobile_callable>false</mobile_callable>
+        <name>BusinessRulesUtils</name>
+        <sandbox_callable>false</sandbox_callable>
+        <script><![CDATA[var BusinessRulesUtils = Class.create();
+BusinessRulesUtils.prototype = {
+	initialize: function () {
+
+	},
+
+	notifyAssignedDoctor: function (current) {
+		gs.eventQueue('notify.assigned.doctor', current, current.u_doctor_id.u_email, null);
+	},
+
+	completeAppointment: function (current) {
+		var notes = current.work_notes.getJournalEntry(-1);
+		notes = notes.split('\n');
+		for (var i = 0; i < notes.length; i++) {
+			if (notes[i].toLowerCase().includes('appointment is finished') || notes[i].includes('appointment is completed') || notes[i].toLowerCase().includes('finished') || notes[i].toLowerCase().includes('completed')) {
+				current.u_status = 'completed';
+				current.update();
+				return;
+			}
+		}
+	},
+
+	setPriorityIfVIP: function (current) {
+		if (current.u_patient_id.u_vip) {
+			current.priority = '2';
+			current.update();
+		}
+	},
+
+	calculateTotalDosage: function (current) {
+		frqMap = {
+			'once_daily': 1,
+			'twice_daily': 2,
+			'thrice_daily': 3
+		};
+		var frequency = frqMap[current.getValue('u_frequency')];
+		var dosage = Number(current.u_dosage);
+		var totalDosage = frequency * dosage;
+		current.setValue('u_total_dosage', totalDosage);
+	},
+
+	notifyPatientForTestResults: function (current) {
+		if (!current.u_results.toLowerCase().includes('awaiting results')) {
+			gs.eventQueue('notify_patient_about_test_results', current, current.u_patient_id.u_email, null);
+		}
+	},
+
+	beforUpdateOccupancyInRoom: function (current, param1) {
+		if (param1) {
+			var roomGr = new GlideRecord('u_rooms');
+			roomGr.get(current.u_room_id);
+			var _cond1 = roomGr.u_bed_counts > roomGr.u_occupied_beds;
+			if (!_cond1) {
+				// gs.addErrorMessage('Invalid Insert');
+				current.setAbortAction(true);
+			}
+		}
+		else {
+			if (_cond1) {
+				roomGr.u_occupied_beds += 1;
+				roomGr.update();
+				gs.addInfoMessage("hi");
+			}
+
+		}
+
+	},
+
+	type: 'BusinessRulesUtils'
+}; ]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-07-24 18:07:54</sys_created_on>
+        <sys_id>d2cf62f783fe6650b490fa96feaad3f2</sys_id>
+        <sys_mod_count>13</sys_mod_count>
+        <sys_name>BusinessRulesUtils</sys_name>
+        <sys_package display_value="Healthcare Management Application" source="ff36b070833222100216b1d6feaad3ad">ff36b070833222100216b1d6feaad3ad</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Healthcare Management Application">ff36b070833222100216b1d6feaad3ad</sys_scope>
+        <sys_update_name>sys_script_include_d2cf62f783fe6650b490fa96feaad3f2</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-07-24 18:44:38</sys_updated_on>
+    </sys_script_include>
+</record_update>

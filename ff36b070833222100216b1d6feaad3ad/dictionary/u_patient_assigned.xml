@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="11ca5e7f837e6650b490fa96feaad3d7" label="Patient Assigned" max_length="40" name="u_patient_assigned" type="collection">
+        <element attributes="encode_utf8=false" label="Ward ID" max_length="32" name="u_ward_id" reference="u_ward" type="reference"/>
+        <element attributes="encode_utf8=false" label="Room ID" max_length="32" name="u_room_id" reference="u_rooms" type="reference"/>
+        <element attributes="encode_utf8=false" label="Patient ID" max_length="32" name="u_patient_id" reference="u_patient_record" type="reference"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Assignment ID" max_length="40" name="u_number" read_only="true" type="string"/>
+        <index name="index">
+            <element name="u_patient_id"/>
+        </index>
+        <index name="index2">
+            <element name="u_room_id"/>
+        </index>
+        <index name="index3">
+            <element name="u_ward_id"/>
+        </index>
+    </element>
+</database>
