@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>global.AppointmentUtils</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <mobile_callable>false</mobile_callable>
+        <name>AppointmentUtils</name>
+        <sandbox_callable>false</sandbox_callable>
+        <script><![CDATA[var AppointmentUtils = Class.create();
+AppointmentUtils.prototype = {
+	initialize: function () {
+		this.source = new GlideRecord('u_appointments');
+	},
+
+	fetchAppointmentsUsingPatientId: function (patientId) {
+		this.source.addQuery('u_patient_id', patientId);
+		this.source.query();
+		return this.source;
+	},
+
+	checkAppStatus: function (appId) {
+		this.source.get(appId);
+		if (this.source.u_status == 'confirmed') {
+			return true;
+		}
+		else {
+			return false;
+		}
+	},
+
+	fetchAppointmentDetailsById: function (appId) {
+		this.source.get(appId);
+		var results = {
+			app_num: this.source.getValue('number'),
+			app_pat_id: this.source.getValue('u_patient_id'),
+			app_priority: this.source.getValue('priority'),
+			app_date: this.source.getValue('u_appointment_date'),
+			app_dept: this.source.getValue('u_department'),
+			app_doc: this.source.getValue('u_doctor'),
+			app_stat: this.source.getValue('u_status'),
+		};
+
+		return results;
+	},
+
+	fetchAppointmentsByDate: function (dateStr) {
+		var results = [];
+		var start = new GlideDateTime(dateStr);
+		var end = new GlideDateTime(dateStr);
+		end.addDays(1);
+		var appointGr4 = new GlideRecord('u_appointments');
+		appointGr4.addQuery('u_appointment_date', '>=', start);
+		appointGr4.addQuery('u_appointment_date', '<', end);
+		appointGr4.query();
+		while (appointGr4.next()) {
+			results.push({
+				number: appointGr4.getDisplayValue('number'),
+				patient: appointGr4.getDisplayValue('u_patient_id'),
+				date: appointGr4.getDisplayValue('u_appointment_date'),
+				department: appointGr4.getDisplayValue('u_department'),
+				status: appointGr4.getDisplayValue('u_status'),
+				doctor: appointGr4.getDisplayValue('u_doctor')
+			});
+		}
+		return results;
+	},
+
+	fetchAppointmentsByDepartment: function (dept) {
+        this.source.addEncodedQuery('u_department=' + dept);
+		this.source.query();
+        return this.source;
+	},
+
+
+
+	type: 'AppointmentUtils'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-08-03 10:57:08</sys_created_on>
+        <sys_id>020de48383cb2210a228ca96feaad3bb</sys_id>
+        <sys_mod_count>9</sys_mod_count>
+        <sys_name>AppointmentUtils</sys_name>
+        <sys_package display_value="Healthcare Management Application" source="ff36b070833222100216b1d6feaad3ad">ff36b070833222100216b1d6feaad3ad</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Healthcare Management Application">ff36b070833222100216b1d6feaad3ad</sys_scope>
+        <sys_update_name>sys_script_include_020de48383cb2210a228ca96feaad3bb</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-08-03 11:31:34</sys_updated_on>
+    </sys_script_include>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>020de48383cb2210a228ca96feaad3bb</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-08-03 10:57:08</sys_created_on>
+        <sys_id>f91d2ccf838b2210a228ca96feaad39b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-08-03 10:57:08</sys_updated_on>
+        <table>sys_script_include</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>

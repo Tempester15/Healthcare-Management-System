@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>global.InsuranceUtils</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <mobile_callable>false</mobile_callable>
+        <name>InsuranceUtils</name>
+        <sandbox_callable>false</sandbox_callable>
+        <script><![CDATA[var InsuranceUtils = Class.create();
+InsuranceUtils.prototype = {
+    initialize: function() {
+		this.source = new GlideRecord('u_insurance');
+    },
+
+	fetchInsuranceDetailsByPatientId : function(patId){
+		this.source.addQuery('u_patient_id', patId);
+		this.source.query();
+		return this.source;
+	},
+
+	checkIfExpired : function(insId){
+		this.source.get(insId);
+		return this.source.u_status == 'expired';
+	},
+
+	fetchPolicyById : function(insId){
+		this.source.get(insId);
+		var result = {
+			ins_num : this.source.getValue('number'),
+			ins_pat_id : this.source.getValue('u_patient_id'),
+			ins_app_id : this.source.getValue('u_appointment_id'),
+			ins_pol_num : this.source.getValue('u_policy_number'),
+			ins_cov_det : this.source.getValue('u_coverage_details'),
+			ins_stat : this.source.getValue('u_status'),
+		};
+		return results;
+	},
+
+	fetchInsurancePolicyByProvider : function(providerName){
+		this.source.addQuery('u_provider', providerName);
+		this.source.query();
+		return this.source;
+	},
+    type: 'InsuranceUtils'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-08-03 12:16:51</sys_created_on>
+        <sys_id>a5fe784b830f2210a228ca96feaad366</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>InsuranceUtils</sys_name>
+        <sys_package display_value="Healthcare Management Application" source="ff36b070833222100216b1d6feaad3ad">ff36b070833222100216b1d6feaad3ad</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Healthcare Management Application">ff36b070833222100216b1d6feaad3ad</sys_scope>
+        <sys_update_name>sys_script_include_a5fe784b830f2210a228ca96feaad366</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-08-03 12:22:32</sys_updated_on>
+    </sys_script_include>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>a5fe784b830f2210a228ca96feaad366</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-08-03 12:16:51</sys_created_on>
+        <sys_id>e95f380b830f2210a228ca96feaad344</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-08-03 12:16:51</sys_updated_on>
+        <table>sys_script_include</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>global.AppointmentUtilsClient</api_name>
+        <caller_access/>
+        <client_callable>true</client_callable>
+        <description/>
+        <mobile_callable>false</mobile_callable>
+        <name>AppointmentUtilsClient</name>
+        <sandbox_callable>false</sandbox_callable>
+        <script><![CDATA[var AppointmentUtilsClient = Class.create();
+AppointmentUtilsClient.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+
+
+	getPatientDetailsByPatientSysId : function(){
+		var patient_sys_id = this.getParameter('sysparm_patient_id');
+		var patientTab = new GlideRecord('u_patient_record');
+		if(patientTab.get(patient_sys_id)){
+			var result = {
+				first_name : patientTab.getValue('u_first_name'),
+				last_name : patientTab.getValue('u_last_name'),
+				sys_id : patient_sys_id
+			};
+			return JSON.stringify(result);
+		}
+		else{
+			return null;
+		}
+		
+	},
+    type: 'AppointmentUtilsClient'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-08-03 06:27:06</sys_created_on>
+        <sys_id>243f27b283872210a228ca96feaad345</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>AppointmentUtilsClient</sys_name>
+        <sys_package display_value="Healthcare Management Application" source="ff36b070833222100216b1d6feaad3ad">ff36b070833222100216b1d6feaad3ad</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Healthcare Management Application">ff36b070833222100216b1d6feaad3ad</sys_scope>
+        <sys_update_name>sys_script_include_243f27b283872210a228ca96feaad345</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-08-03 06:31:12</sys_updated_on>
+    </sys_script_include>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>243f27b283872210a228ca96feaad345</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-08-03 06:27:06</sys_created_on>
+        <sys_id>1a4fafb283872210a228ca96feaad37b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-08-03 06:27:06</sys_updated_on>
+        <table>sys_script_include</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>

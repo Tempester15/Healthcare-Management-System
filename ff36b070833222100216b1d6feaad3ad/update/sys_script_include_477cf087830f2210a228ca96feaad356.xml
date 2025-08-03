@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>global.BillingUtils</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <mobile_callable>false</mobile_callable>
+        <name>BillingUtils</name>
+        <sandbox_callable>false</sandbox_callable>
+        <script><![CDATA[var BillingUtils = Class.create();
+BillingUtils.prototype = {
+    initialize: function() {
+		this.source = new GlideRecord('u_billing');
+    },
+
+	calculateTotalAmount : function(patId){
+		var totalAmount = 0;
+		this.source.addQuery('u_patient_id', patId);
+		this.source.query();
+		while(this.source.next()){
+			total_amount += this.source.u_total_amount;
+		}
+
+		return total_amount;
+	},
+
+	checkIfOverdue : function(billId){
+		this.source.get(billId);
+		if(this.source.u_status == 'overdue'){
+			return true;
+		}
+		else{
+			return false;
+		}
+	},
+
+	fetchBillingDetailsByBillingId : function(billId){
+		this.source.get(billId);
+		var results = {
+			bill_num : this.source.getValue('number'),
+			bill_pat_id : this.source.getValue('u_patient_id'),
+			bill_app_id : this.source.getValue('u_appointment_id'),
+			bill_amount : this.source.getValue('u_total_amount'),
+			bill_stat : this.source.getValue('u_status')
+		};
+
+		return results;
+	},
+
+	fetchBillingRecordByPatientId : function(patId){
+		this.source.addQuery('u_patient_id', patId);
+		this.source.query();
+		return this.source;
+	},
+
+    type: 'BillingUtils'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-08-03 12:08:19</sys_created_on>
+        <sys_id>477cf087830f2210a228ca96feaad356</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>BillingUtils</sys_name>
+        <sys_package display_value="Healthcare Management Application" source="ff36b070833222100216b1d6feaad3ad">ff36b070833222100216b1d6feaad3ad</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Healthcare Management Application">ff36b070833222100216b1d6feaad3ad</sys_scope>
+        <sys_update_name>sys_script_include_477cf087830f2210a228ca96feaad356</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-08-03 12:14:58</sys_updated_on>
+    </sys_script_include>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>477cf087830f2210a228ca96feaad356</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-08-03 12:08:18</sys_created_on>
+        <sys_id>586db447830f2210a228ca96feaad3cd</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-08-03 12:08:18</sys_updated_on>
+        <table>sys_script_include</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>

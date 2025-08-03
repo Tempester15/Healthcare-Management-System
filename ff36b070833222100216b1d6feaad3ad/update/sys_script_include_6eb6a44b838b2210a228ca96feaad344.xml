@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>global.PatientUtils</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <mobile_callable>false</mobile_callable>
+        <name>PatientUtils</name>
+        <sandbox_callable>false</sandbox_callable>
+        <script><![CDATA[var PatientUtils = Class.create();
+PatientUtils.prototype = {
+    initialize: function(patientId) {
+        this.source = new GlideRecord('u_patient_record');
+        this.id = patientId;
+    },
+
+    fetchAllPatientDetailsByPatientID: function() {
+        this.source.get(this.id);
+        results = {
+            patient_number: this.source.getValue('u_number'),
+            patient_user_id: this.source.getValue('u_user_patient'),
+            patient_first_name: this.source.getValue('u_first_name'),
+            patient_last_name: this.source.getValue('u_last_name'),
+            patient_dob: this.source.getValue('u_dob').toString(),
+            patient_gender: this.source.getValue('u_gender'),
+            patient_status: this.source.getValue('u_status'),
+            patient_vip: this.source.getValue('u_vip'),
+            patient_contact_number: this.source.getValue('u_contact_number'),
+            patient_email: this.source.getValue('u_email'),
+            patient_address: this.source.getValue('u_address'),
+            patient_emergency_contact_number: this.source.getValue('u_emergency_contact_number'),
+
+        };
+        return results;
+    },
+
+    checkIfVIP: function() {
+        this.source.get(this.id);
+        if (this.source.u_vip) {
+            return true;
+        } else {
+            return false;
+        }
+    },
+
+
+    getAge: function() {
+        this.source.get(this.id);
+        var today = new GlideDateTime(gs.nowDateTime());
+        var dateOfBirth = new GlideDateTime(this.source.u_dob);
+        var age = Math.round(GlideDateTime.subtract(dateOfBirth, today).getNumericValue() / (1000 * 60 * 60 * 24 * 365));
+        return age;
+    },
+
+	fetchPatientAppointment : function(){
+		var appointmentGr = new GlideRecord('u_appointments');
+		appointmentGr.addQuery('u_patient_id', this.id);
+		appointmentGr.query();
+		return appointmentGr;
+	},
+
+	fetchPatientMedications : function(){
+		var medGr = new GlideRecord('u_medication');
+		medGr.addQuery('u_patient_i(d', this.id);
+		medGr.query();
+		return medGr;
+	},
+
+	fetchPatientLabTests : function(){
+		var labGr = new GlideRecord('u_lab_test');
+		labGr.addQuery('u_patient_id', this.id);
+		labGr.query();
+		return labGr;
+	},
+
+	fetchPatientBills : function(){
+		var billGr = new GlideRecord('u_billing');
+		billGr.addQuery('u_patient_id', this.id);
+		billGr.query();
+		return billGr;
+	},
+
+	fetchPatientInsurances : function(){
+		var insGr = new GlideRecord('u_insurance');
+		insGr.addQuery('u_patient_id', this.id);
+		insGr.query();
+		return insGr;
+	},
+
+
+
+    type: 'PatientUtils'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-08-03 10:29:36</sys_created_on>
+        <sys_id>6eb6a44b838b2210a228ca96feaad344</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>PatientUtils</sys_name>
+        <sys_package display_value="Healthcare Management Application" source="ff36b070833222100216b1d6feaad3ad">ff36b070833222100216b1d6feaad3ad</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Healthcare Management Application">ff36b070833222100216b1d6feaad3ad</sys_scope>
+        <sys_update_name>sys_script_include_6eb6a44b838b2210a228ca96feaad344</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-08-03 10:56:41</sys_updated_on>
+    </sys_script_include>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>6eb6a44b838b2210a228ca96feaad344</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-08-03 10:29:36</sys_created_on>
+        <sys_id>6ec6e44b838b2210a228ca96feaad311</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-08-03 10:29:36</sys_updated_on>
+        <table>sys_script_include</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>

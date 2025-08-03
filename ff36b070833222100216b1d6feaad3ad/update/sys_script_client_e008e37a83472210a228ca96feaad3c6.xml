@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description/>
+        <field>u_user_patient</field>
+        <global>true</global>
+        <isolate_script>true</isolate_script>
+        <messages/>
+        <name>Auto-populate user details</name>
+        <order/>
+        <script><![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+    if (isLoading || newValue === '') {
+        return;
+    }
+	var userId = g_form.getValue('u_user_patient');
+	// g_form.addInfoMessage('user id : ' + userId);
+	var myScript = new GlideAjax('global.PatientUtilsClient');
+	myScript.addParam('sysparm_name', 'fetchPatientDetails');
+	myScript.addParam('sysparm_user_id', userId);
+	myScript.getXMLAnswer(getResponse);
+
+	function getResponse(result){
+		var _res = JSON.parse(result);
+		g_form.setValue('u_first_name', _res.first_name);
+		g_form.setValue('u_last_name', _res.last_name);
+		g_form.setValue('u_email', _res.email);
+		g_form.setValue('u_contact_number', _res.mobile);
+	}
+    
+
+}]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-08-03 06:00:06</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>e008e37a83472210a228ca96feaad3c6</sys_id>
+        <sys_mod_count>8</sys_mod_count>
+        <sys_name>Auto-populate user details</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Healthcare Management Application" source="ff36b070833222100216b1d6feaad3ad">ff36b070833222100216b1d6feaad3ad</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Healthcare Management Application">ff36b070833222100216b1d6feaad3ad</sys_scope>
+        <sys_update_name>sys_script_client_e008e37a83472210a228ca96feaad3c6</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-08-03 06:20:07</sys_updated_on>
+        <table>u_patient_record</table>
+        <type>onChange</type>
+        <ui_type>10</ui_type>
+        <view/>
+    </sys_script_client>
+</record_update>
