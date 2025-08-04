@@ -12,11 +12,11 @@
         <script><![CDATA[var PatientUtilsClient = Class.create();
 PatientUtilsClient.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 
-	fetchPatientDetails : function(){
+	fetchPatientDetails: function () {
 		var userId = this.getParameter('sysparm_user_id');
 		var userTab = new GlideRecord('sys_user');
 		result = {};
-		if(userTab.get(userId)){
+		if (userTab.get(userId)) {
 			result.first_name = userTab.getValue('first_name');
 			result.last_name = userTab.getValue('last_name');
 			result.email = userTab.getValue('email');
@@ -25,20 +25,48 @@ PatientUtilsClient.prototype = Object.extendsObject(global.AbstractAjaxProcessor
 
 		return JSON.stringify(result);
 	},
-    type: 'PatientUtilsClient'
+
+	fetchPatientDetailsByPatientID: function (number) {
+		var patientId = number || this.getParameter('sysparm_patient_id');
+		var patientGr = new GlideRecord('u_patient_record');
+		if (patientGr.get(patientId)) {
+			var results = {
+				pat_first_name: patientGr.getValue('u_first_name'),
+				pat_last_name: patientGr.getValue('u_last_name'),
+				pat_email: patientGr.getValue('email'),
+				pat_vip: patientGr.getValue('u_vip'),
+			};
+			return JSON.stringify(results);
+		}
+	},
+
+	checkIfVip: function () {
+		var patientId = this.getParameter('sysparm_patient_id');
+		var patientGr = new GlideRecord('u_patient_record');
+		patientGr.get(patientId);
+		if (patientGr.u_vip == true) {
+			return JSON.stringify({ result: 'VIP' });
+		}
+		return JSON.stringify({ result: 'Non-VIP' });
+
+
+	},
+
+
+	type: 'PatientUtilsClient'
 });]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2025-08-03 05:57:33</sys_created_on>
         <sys_id>a038e77a83472210a228ca96feaad399</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>10</sys_mod_count>
         <sys_name>PatientUtilsClient</sys_name>
         <sys_package display_value="Healthcare Management Application" source="ff36b070833222100216b1d6feaad3ad">ff36b070833222100216b1d6feaad3ad</sys_package>
         <sys_policy/>
         <sys_scope display_value="Healthcare Management Application">ff36b070833222100216b1d6feaad3ad</sys_scope>
         <sys_update_name>sys_script_include_a038e77a83472210a228ca96feaad399</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-08-03 06:17:47</sys_updated_on>
+        <sys_updated_on>2025-08-04 01:37:50</sys_updated_on>
     </sys_script_include>
     <sys_es_latest_script action="INSERT_OR_UPDATE">
         <id>a038e77a83472210a228ca96feaad399</id>

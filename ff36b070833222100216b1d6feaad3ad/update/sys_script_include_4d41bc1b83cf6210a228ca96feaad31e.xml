@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>global.UIActionUtils</api_name>
+        <caller_access/>
+        <client_callable>true</client_callable>
+        <description/>
+        <mobile_callable>false</mobile_callable>
+        <name>UIActionUtils</name>
+        <sandbox_callable>false</sandbox_callable>
+        <script><![CDATA[var UIActionUtils = Class.create();
+UIActionUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+	updateAppointmentDate : function(){
+		var appointmentSysId = this.getParameter('sysparm_app_id');
+		var  newDate = this.getParameter('sysparm_new_date');
+		var appointmentGr = new GlideRecord('u_appointments');
+		if(appointmentGr.get(appointmentSysId)){
+			appointmentGr.setValue('u_appointment_date', newDate);
+			appointmentGr.update();
+		}
+		return;
+
+	},
+    type: 'UIActionUtils'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-08-04 05:58:11</sys_created_on>
+        <sys_id>4d41bc1b83cf6210a228ca96feaad31e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>UIActionUtils</sys_name>
+        <sys_package display_value="Healthcare Management Application" source="ff36b070833222100216b1d6feaad3ad">ff36b070833222100216b1d6feaad3ad</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Healthcare Management Application">ff36b070833222100216b1d6feaad3ad</sys_scope>
+        <sys_update_name>sys_script_include_4d41bc1b83cf6210a228ca96feaad31e</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-08-04 05:58:11</sys_updated_on>
+    </sys_script_include>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>4d41bc1b83cf6210a228ca96feaad31e</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-08-04 05:58:11</sys_created_on>
+        <sys_id>1042bc1b83cf6210a228ca96feaad33a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-08-04 05:58:11</sys_updated_on>
+        <table>sys_script_include</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>
